@@ -1,4 +1,4 @@
-FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files/${MACHINE}:"
 
 # Only use the dtsi for the spirit-phone-cm5 target
 SRC_URI:append:spirit-phone-cm5 = " \
