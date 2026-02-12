@@ -44,7 +44,9 @@ To configure the image run:
 kas-container menu meta-spirit/Kconfig
 ```
 
-After selecting the desired features select `Build` in the menu.
+After selecting the desired features select `Build` in the menu:
+
+By default the configuration gets saved as `.config.yaml`.
 
 The build can be ran/resumed by simply running
 
