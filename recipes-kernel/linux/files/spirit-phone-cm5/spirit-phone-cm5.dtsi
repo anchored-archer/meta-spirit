@@ -1,15 +1,12 @@
-/*
- * TODO: Move this node under the correct I2C controller once the bus is known.
- * For now it's defined at root level with status="disabled" so it compiles
- * but has no runtime effect.
- */
+// SPDX-License-Identifier: GPL-2.0
+&i2c0 {
+	status = "okay";
 
-&{/} {
-	spirit_pmic: spirit-pmic {
+	/* PMIC */
+	spirit_pmic: spirit-pmic@48 {
 		compatible = "ti,tps65023";
+		reg = <0x48>;
 		status = "disabled";
-
-		/* Address 0x48 - will need proper reg when moved under I2C bus */
 
 		regulators {
 			VDCDC1 {
@@ -36,3 +33,24 @@
 	};
 };
 
+/ {
+	tps65131_reg: tps65131-regulator {
+		compatible = "regulator-fixed";
+		regulator-name = "tps65131-en";
+		gpios = <&rp1_gpio 16 GPIO_ACTIVE_HIGH>;
+		enable-active-high;
+		regulator-boot-on;
+	};
+};
+
+&dsi1 {
+	status = "okay";
+
+	panel@0 {
+		reg = <0>;
+		compatible = "boe,wd5eaf01";
+
+		reset-gpios = <&rp1_gpio 26 GPIO_ACTIVE_LOW>;
+		power-supply = <&tps65131_reg>;
+	};
+};
